@@ -1,1 +1,23 @@
 <h1>{{subTitle}}</h1>
+{{#if courses.length}}
+{{#each courses}}
+<div class="row">
+    <div class="col s6 offset-3">
+        <div class="card">
+            <div class="card-image">
+                <img src="{{img}}">
+            </div>
+            <div class="card-content">
+                <span class="card-title">{{title}}</span>
+                <p class="price">{{price}}</p>
+            </div>
+            <div class="card-action">
+                <a href="/courses/{{id}}">This is a link</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each }} 
+{{else}}
+<h2>Courses not </h2>
+{{/if}}
