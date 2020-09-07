@@ -58,6 +58,30 @@ class Course {
     const courses = await Course.getAll()
     return courses.find(c => c.id === id)
   }
+
+  static async updata(data){
+    console.log(data);
+     const course = await Course.getAll()
+
+     const idx = course.findIndex(i=>i.id === data.id)
+     console.log(idx); 
+     course[idx] = data
+
+     return new Promise((resolve, reject) => {
+      fs.writeFile(
+        path.join(__dirname, '..', 'data', 'courses.json'),
+        JSON.stringify(course),
+        (err) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve('f')
+          }
+        }
+      )
+    })
+
+  }
 }
 
 module.exports = Course
