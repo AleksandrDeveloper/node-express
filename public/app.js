@@ -8,3 +8,16 @@ document.querySelectorAll('.price').forEach(node => {
   })
 
   console.log('fff353463');
+
+  const $cart = document.querySelector('.cart') || document.body
+  $cart.addEventListener('click',(event)=>{
+    if(event.target.classList.contains('js-btn')){
+      const id = event.target.dataset.id
+      fetch(`/cart/remove/${id}`,{
+        method:'delete'
+      }).then(res=>res.json())
+      .then(cart=>{
+        console.log(cart);
+      })
+    }
+  })

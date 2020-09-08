@@ -1,0 +1,29 @@
+<div class="cart">
+    <h1>Cart </h1>
+
+{{#if course.length}}
+<table>
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Количетво</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each course}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{count}}</td>
+                <td>
+                    <button class="btn btn-primary js-btn" data-id='{{id}}'>Delit</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+<p>Price: {{price}}</p>
+{{else}}
+<p>Cart is pysta</p> 
+{{/if}}
+</div>
