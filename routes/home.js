@@ -7,6 +7,6 @@ router.get('/', (req, res) => {
     isHome: true
   })
 })
+ 
 
-
-module.exports = router
+module.exports = router 

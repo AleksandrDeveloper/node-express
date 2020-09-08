@@ -5,6 +5,7 @@ const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/course')
 const cartRoutes = require('./routes/cart')
+const mongoose = require('mongoose')
 
 const app = express()
 
@@ -27,6 +28,20 @@ app.use('/cart', cartRoutes)
 
 const PORT = process.env.PORT || 3000
 
-app.listen(3000, () => { 
-  console.log(`Server is running on port ${PORT}`)
-})
+
+async function start(){
+  try {
+    const url = 'mongodb+srv://aleksDev:O56ZwRXecW9rRjOB@node-1.aytwk.mongodb.net/Node-1?retryWrites=true&w=majority'
+    await mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology: true})
+    app.listen(3000, () => { 
+      console.log(`Server is running on port ${PORT}`)
+    }) 
+  } catch (error) { 
+    console.log('error++',error);
+  } 
+}
+
+
+start()
+//O56ZwRXecW9rRjOB
+// mongodb+srv://aleksDev:<O56ZwRXecW9rRjOB>@node-1.aytwk.mongodb.net/<node1>?retryWrites=true&w=majority
