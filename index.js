@@ -23,8 +23,8 @@ app.use(async(req,res,next)=>{
     const user = await User.findById('5f5937b49d049726bc9b263c')
     req.user = user;
     next()
-    } catch (error) {
-    
+  } catch (error) {
+    console.log(error); 
   }
 })
 
@@ -42,6 +42,14 @@ app.use('/cart', cartRoutes)
 
 const PORT = process.env.PORT || 3000
 
+ 
+
+
+
+
+
+
+
 
 async function start(){
   try {
@@ -57,8 +65,6 @@ async function start(){
       }) 
       await userOne.save()
     }
- 
-
 
     app.listen(3000, () => { console.log(`Server is running on port ${PORT}`) }) 
   } catch (error) { console.log('++++++++++++',error)} 

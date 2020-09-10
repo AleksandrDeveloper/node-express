@@ -1,30 +1,48 @@
-const {Router, json} = require('express')
-const Course = require('../models/course')
-const Cart = require('../models/cart')
-const router = Router()
+const { Router, json } = require("express");
+const Course = require("../models/course");
+const Cart = require("../models/cart");
+const router = Router();
 
-router.post('/add', async (req, res) => {
-    const courseItem = await Course.getById(req.body.id)
-    await Cart.add(courseItem)
+function mapCartTo(cart) {
+  return cart.map((c) => ({
+    ...c.courseId._doc,
+    count: c.count,
+  }));
+}
+
+router.post("/add", async (req, res) => {
+  try {
+    const course = await Course.findById(req.body.id);
+    await req.user.addToCart(course);
+
+    res.redirect("/cart");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/remove/:id", async (req, res) => {
+  try {
+    await req.user.removeFromCart(req.params.id)
+    const user = req.user.populate('cart.items.courseId').execPopulate()
+
+    res.json({Hello:'ffffff'}).redirect('/cart')
+
     res.redirect('/cart')
-})
+  } catch (error) {console.log(error)}
+});
 
-router.delete('/remove/:id',async(req,res)=>{
-   await Cart.remove(req.params.id)
-   res.status(200).json(await Cart.getCart())
-})
+router.get("/", async (req, res) => {
+  const user = await req.user.populate("cart.items.courseId").execPopulate();
 
+  const courses = mapCartTo(user.cart.items);
 
-router.get('/', async (req, res) => {
-    const cart = await Cart.getCart()
-    res.render('cart',{
-        isCart:true ,
-        title:'Cart',
-        course:cart.course,
-        price:cart.price,
-        id:cart.id
-    })
-})
+  res.render("cart", {
+    isCart: true,
+    title: "Cart",
+    course: courses,
+    price: 1000000,
+  });
+});
 
-
-module.exports = router 
+module.exports = router;

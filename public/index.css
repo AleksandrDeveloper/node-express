@@ -17,7 +17,16 @@
     margin-bottom: 20px;
 }
 
-.felx{
+/* .container{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+} */
+.row { 
+    margin-left: 0;
+    margin-right: 0;
+}
+.item{
+    max-width: 410px;
+    width: 100%;
 }
