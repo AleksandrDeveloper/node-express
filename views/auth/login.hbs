@@ -1,10 +1,38 @@
-<div class="row">
+<div class="row pt-5">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s6"><a class="active" href="#login">Login</a></li>
-            <li class="tab col s6"><a  href="#register">Register</a></li>
+            <li class="tab col s6"><a href="#login">Login</a></li>
+            <li class="tab col s6"><a href="#register">Register</a></li>
         </ul>
+    </div> 
+    <div id="login" class="col s6 offset-s3">
+        <h2>Login</h2>
+
+        <form action="/auth/login" method="post">
+            <div class="input-field col s6">
+                <input id="email" name="email" type="text" class="validate">
+            </div>
+            <div class="input-field col s6">
+                <input id="password" name="password" type="password" class="validate">
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
     </div>
-    <div id="login" class="col s6 offset-s3">Login</div>
-    <div id="register" class="col s12 offset-s3">Register</div>
-</div>
+
+    <div id="register" class="col s6 offset-s3">
+        <h2>Ristration</h2>
+
+        <form action="/auth/register" method="post">
+            <div class="input-field col s12">
+                <input id="remail" name="email" type="text" class="validate">
+            </div>
+            <div class="input-field col s12">
+                <input id="rpassword" name="password" type="password" class="validate">
+            </div>
+            <div class="input-field col s12">
+                <input id="rpassword" name="repatPassword" type="password" class="validate">
+            </div>
+            <button type="submit" class="btn">Ristration</button>
+        </form>
+    </div> 
+</div> 

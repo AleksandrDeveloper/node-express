@@ -11,28 +11,36 @@ const mongoose = require('mongoose')
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const Handlebars = require('handlebars')
 const User = require('./models/user')
+const session = require('express-session')
+const varMiddleware = require('./middleware/var')
 
 const app = express()
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
-  extname: 'hbs',
+  extname: 'hbs', 
   handlebars: allowInsecurePrototypeAccess(Handlebars)
 })
 
-app.use(async(req,res,next)=>{
-  try {
-    const user = await User.findById('5f5937b49d049726bc9b263c')
-    req.user = user;
-    next()
-  } catch (error) {
-    console.log(error); 
-  }
-})
+// app.use(async(req,res,next)=>{
+//   try {
+//     const user = await User.findById('5f5937b49d049726bc9b263c')
+//     req.user = user;
+//     next()
+//   } catch (error) {  
+//     console.log(error);  
+//   }
+// })
 
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs') 
 app.set('views', 'views')
+app.use(session({
+  secret:'some seccret',
+  resave:true, 
+  saveUninitialized:false
+}))
+app.use(varMiddleware)
 
 app.use(express.static('public')) 
 app.use(express.urlencoded({extended: true}))

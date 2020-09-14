@@ -3,40 +3,46 @@
         <a href="#" class="brand-logo">Course</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             {{#if isHome}}
-                <li class="avtive"><a href="/">Home</a></li>
+            <li class="avtive"><a href="/">Home</a></li>
             {{else}}
-                <li><a href="/">Home</a></li>
+            <li><a href="/">Home</a></li>
             {{/if}}
 
             {{#if isCourse}}
-                <li class="avtive"><a href="/courses">Courses</a></li>
+            <li class="avtive"><a href="/courses">Courses</a></li>
             {{else}}
-                <li><a href="/courses">Courses</a></li>
+            <li><a href="/courses">Courses</a></li>
             {{/if}}
 
+            {{#if isAuth}}
             {{#if isAdd}}
-                <li class="avtive"><a href="/add">Add course</a></li>
+            <li class="avtive"><a href="/add">Add course</a></li>
             {{else}}
-                <li><a href="/add">Add course</a></li>
+            <li><a href="/add">Add course</a></li>
             {{/if}}
 
             {{#if isCart}}
-                <li class="avtive"><a href="/cart">Cart</a></li>
+            <li class="avtive"><a href="/cart">Cart</a></li>
             {{else}}
-                <li><a href="/cart">Cart</a></li> 
+            <li><a href="/cart">Cart</a></li>
             {{/if}}
 
             {{#if isOrser}}
-                <li class="avtive"><a href="/order">Order</a></li>
+            <li class="avtive"><a href="/order">Order</a></li>
             {{else}}
-                <li><a href="/order">Order</a></li> 
+            <li><a href="/order">Order</a></li>
             {{/if}}
-            {{#if isLogin}}
-                <li class="avtive"><a href="/auth/login">Login</a></li>
             {{else}}
-                <li><a href="/auth/login">Login</a></li> 
+            {{#if isLogin}}
+            <li class="avtive"><a href="/auth/login#login">Login</a></li>
+            {{else}}
+            <li><a href="/auth/login#logink">Login</a></li>
             {{/if}}
 
-        </ul> 
+            {{/if}}
+
+            <li><a href="/auth/logout">Exit</a></li>
+
+        </ul>
     </div>
-</nav>  
+</nav>
