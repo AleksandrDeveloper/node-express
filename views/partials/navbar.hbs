@@ -26,6 +26,17 @@
                 <li><a href="/cart">Cart</a></li> 
             {{/if}}
 
+            {{#if isOrser}}
+                <li class="avtive"><a href="/order">Order</a></li>
+            {{else}}
+                <li><a href="/order">Order</a></li> 
+            {{/if}}
+            {{#if isLogin}}
+                <li class="avtive"><a href="/auth/login">Login</a></li>
+            {{else}}
+                <li><a href="/auth/login">Login</a></li> 
+            {{/if}}
+
         </ul> 
     </div>
 </nav>  

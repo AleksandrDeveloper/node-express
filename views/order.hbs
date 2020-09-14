@@ -1,0 +1,22 @@
+<h1>Order</h1>
+
+{{#if orders.length}}
+    {{#each orders}}
+    <div class="cart">
+        <small>{{_id}}</small>
+        <br>
+        <small>{{data}}</small>
+         <br>
+        <p>user {{user.name}}---{{user.userId.email}}</p>
+        <p class="rice">Price  {{price}}</p>
+        <ul>
+            {{#each courses }}
+            <li>{{course.title}} <strong>{{course.count}}</strong></li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/each}}
+
+{{else}}
+    <p>Order is not</p>
+{{/if}}
