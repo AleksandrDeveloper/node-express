@@ -59,18 +59,18 @@ async function start(){
   try {
     await mongoose.connect(MONGODB_URL,{useNewUrlParser:true,useUnifiedTopology: true,useFindAndModify:false})
 
-    const candidat = await User.findOne()
-    if(!candidat){
-      const userOne = new User({
-        email:'alesk@mail.ru',
-        name:'Aleks',
-        cart:{items:[]}
-      }) 
-      await userOne.save()
-    }
+    // const candidat = await User.findOne()
+    // if(!candidat){
+    //   const userOne = new User({
+    //     email:'alesk@mail.ru',
+    //     name:'Aleks',
+    //     cart:{items:[]}
+    //   }) 
+    //   await userOne.save()
+    // }
 
     app.listen(3000, () => { console.log(`Server is running on port ${PORT}`) }) 
-  } catch (error) { console.log('++++++++++++',error)} 
+  } catch (error) { console.log('++++++++++++++++++++++++++++++++++++',error)} 
 }
 
 
