@@ -11,36 +11,37 @@ const mongoose = require('mongoose')
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const Handlebars = require('handlebars')
 const User = require('./models/user')
-const session = require('express-session')
+const userMiddleware = require('./middleware/user')
+
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 const varMiddleware = require('./middleware/var')
 
 const app = express()
+const MONGODB_URL = 'mongodb+srv://aleksDev:O56ZwRXecW9rRjOB@node-1.aytwk.mongodb.net/Node-1?retryWrites=true&w=majority'
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: 'hbs', 
   handlebars: allowInsecurePrototypeAccess(Handlebars)
 })
-
-// app.use(async(req,res,next)=>{
-//   try {
-//     const user = await User.findById('5f5937b49d049726bc9b263c')
-//     req.user = user;
-//     next()
-//   } catch (error) {  
-//     console.log(error);  
-//   }
-// })
+const storeMongo = new MongoStore({
+  collection:'session',
+  url:MONGODB_URL
+})
+  
 
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs') 
-app.set('views', 'views')
+app.set('views', 'views') 
 app.use(session({
   secret:'some seccret',
   resave:true, 
-  saveUninitialized:false
+  saveUninitialized:false,
+  store:storeMongo
 }))
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use(express.static('public')) 
 app.use(express.urlencoded({extended: true}))
@@ -52,22 +53,11 @@ app.use('/cart', cartRoutes)
 app.use('/order', orderRoutes)
 app.use('/auth', authRoutes)
 
-
 const PORT = process.env.PORT || 3000
-
- 
-
-
-
-
-
-
-
 
 async function start(){
   try {
-    const url = 'mongodb+srv://aleksDev:O56ZwRXecW9rRjOB@node-1.aytwk.mongodb.net/Node-1?retryWrites=true&w=majority'
-    await mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology: true,useFindAndModify:false})
+    await mongoose.connect(MONGODB_URL,{useNewUrlParser:true,useUnifiedTopology: true,useFindAndModify:false})
 
     const candidat = await User.findOne()
     if(!candidat){
@@ -85,4 +75,16 @@ async function start(){
 
 
 start() 
+
+
+
+// app.use(async(req,res,next)=>{
+//   try {
+//     const user = await User.findById('5f5937b49d049726bc9b263c')
+//     req.user = user;
+//     next()
+//   } catch (error) {  
+//     console.log(error);  
+//   }
+// })
   

@@ -12,12 +12,14 @@
                 <p class="price">{{price}}</p>
             </div>
             <div class="card-action">
-                <a href="/courses/{{id}}">This is a link</a>
+                               <a href="/courses/{{id}}">Full</a>
+                {{#if @root.isAuth}} 
                 <a href="/courses/{{id}}/edit?allow=true">Edit</a>
                 <form action="/cart/add" method="post">
-                <input type="text" hidden name='id' value='{{id}}'>
-                <button type="submit" class="btn btn-primary">To cart</button>
-                </form> 
+                    <input type="text" hidden name='id' value='{{id}}'>
+                    <button type="submit" class="btn btn-primary">To cart</button>
+                </form>
+                {{/if}}
             </div>
         </div> 
     </div>
