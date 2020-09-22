@@ -1,23 +1,26 @@
 <h1>Edit</h1>
 <form action="/courses/edit" method="post">
     <div class="input-field col s6">
-        <input  id="title" name="title" type="text" class="validate" required value='{{course.title}}'>
-         <span class="helper-text" data-error="title" data-success="right"></span>
+        <input id="title" name="title" type="text" class="validate" required value='{{course.title}}'>
+        <span class="helper-text" data-error="title" data-success="right"></span>
     </div>
     <div class="input-field col s6">
-        <input  id="price" name="price" type="number" class="validate" required value='{{course.price}}' >
-         <span class="helper-text" data-error="price" data-success="right"></span>
-    </div> 
-     <div class="input-field col s6">
-        <input  id="url" name="img" type="text" class="validate" required value='{{course.img}}'>
-         <span class="helper-text" data-error="url" data-success="right"></span>
+        <input id="price" name="price" type="number" class="validate" required value='{{course.price}}'>
+        <span class="helper-text" data-error="price" data-success="right"></span>
     </div>
-    <input type="text" name="id" hidden value='{{course.id}}'>
+    <div class="input-field col s6">
+        <input id="url" name="img" type="text" class="validate" required value='{{course.img}}'>
+        <span class="helper-text" data-error="url" data-success="right"></span>
+    </div>
 
-    <button type="submit">Add course</button>
+    <input type="text" name="id" hidden value='{{course.id}}'>
+    
+
+    <button type="submit" class="btn">Edit</button>
 </form>
+
 <form action="/courses/remove" method="post">
     <input type="text" name="id" hidden value='{{course.id}}'>
-
+    <input type="hidden" name="_csrf" value='{{csrf}}'> 
     <button type="submit" class="btn red">Remove</button>
-</form>
+</form> 

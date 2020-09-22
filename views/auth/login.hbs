@@ -15,6 +15,7 @@
             <div class="input-field col s6">
                 <input id="password" name="password" type="password" class="validate">
             </div>
+            <input type="hidden" name="_csrf" value='{{csrf}}'>
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
@@ -32,6 +33,7 @@
             <div class="input-field col s12">
                 <input id="name" name="name" type="text" class="validate">
             </div>
+            <input type="hidden" name="_csrf" value='{{csrf}}'>
             <button type="submit" class="btn">Ristration</button>
         </form>
     </div> 

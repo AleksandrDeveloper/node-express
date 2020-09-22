@@ -3,6 +3,8 @@ const path = require('path')
 const exphbs = require('express-handlebars')
 const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
+const cookieParser = require('cookie-parser')
+const csrf = require('csurf')
 const coursesRoutes = require('./routes/course')
 const cartRoutes = require('./routes/cart')
 const orderRoutes = require('./routes/order')
@@ -12,13 +14,13 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 const Handlebars = require('handlebars')
 const User = require('./models/user')
 const userMiddleware = require('./middleware/user')
-
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 const varMiddleware = require('./middleware/var')
+const config = require('./config/index')
 
 const app = express()
-const MONGODB_URL = 'mongodb+srv://aleksDev:O56ZwRXecW9rRjOB@node-1.aytwk.mongodb.net/Node-1?retryWrites=true&w=majority'
+
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
@@ -27,24 +29,30 @@ const hbs = exphbs.create({
 })
 const storeMongo = new MongoStore({
   collection:'session',
-  url:MONGODB_URL
+  url:config.MONGODB_URL
 })
-  
+
+
 
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs') 
-app.set('views', 'views') 
+app.set('views', 'views')
+app.use(cookieParser()) 
 app.use(session({
-  secret:'some seccret',
+  secret:config.secret,
   resave:true, 
   saveUninitialized:false,
-  store:storeMongo
+  store:storeMongo 
 }))
-app.use(varMiddleware)
-app.use(userMiddleware)
 
+
+ 
+app.use(varMiddleware)
+app.use(userMiddleware) 
 app.use(express.static('public')) 
 app.use(express.urlencoded({extended: true}))
+
+
 
 app.use('/', homeRoutes)
 app.use('/add', addRoutes)
@@ -53,23 +61,13 @@ app.use('/cart', cartRoutes)
 app.use('/order', orderRoutes)
 app.use('/auth', authRoutes)
 
-const PORT = process.env.PORT || 3000
+
 
 async function start(){
   try {
-    await mongoose.connect(MONGODB_URL,{useNewUrlParser:true,useUnifiedTopology: true,useFindAndModify:false})
+    await mongoose.connect(config.MONGODB_URL,{useNewUrlParser:true,useUnifiedTopology: true,useFindAndModify:false})
 
-    // const candidat = await User.findOne()
-    // if(!candidat){
-    //   const userOne = new User({
-    //     email:'alesk@mail.ru',
-    //     name:'Aleks',
-    //     cart:{items:[]}
-    //   }) 
-    //   await userOne.save()
-    // }
-
-    app.listen(3000, () => { console.log(`Server is running on port ${PORT}`) }) 
+    app.listen(config.PORT, () => { console.log(`Server is running on port ${config.PORT}`) }) 
   } catch (error) { console.log('++++++++++++++++++++++++++++++++++++',error)} 
 }
 
